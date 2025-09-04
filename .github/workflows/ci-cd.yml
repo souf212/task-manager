@@ -75,9 +75,11 @@ jobs:
 
       - name: Deploy backend to Railway
         run: |
-          railway login --apiKey ${{ secrets.RAILWAY_TOKEN }}
           cd Backend
-          railway up --detach --service task-manager-backend
+          railway up --service task-manager-backend --ci
+        env:
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+      
 
       # 12. Deploy frontend to Railway
       - name: Deploy frontend to Railway
