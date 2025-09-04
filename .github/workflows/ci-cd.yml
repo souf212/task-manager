@@ -69,21 +69,3 @@ jobs:
           docker build -t ${{ secrets.DOCKER_USERNAME }}/task-manager-frontend:latest ./task-manager-frontend
           docker push ${{ secrets.DOCKER_USERNAME }}/task-manager-frontend:latest
 
-      # 11. Deploy backend to Railway
-      - name: Install Railway CLI
-        run: npm install -g @railway/cli
-
-      - name: Deploy backend to Railway
-        run: |
-          cd Backend
-          railway up --service task-manager-backend --ci
-        env:
-          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
-
-      # 12. Deploy frontend to Railway
-      - name: Deploy frontend to Railway
-        run: |
-          cd task-manager-frontend
-          railway up --service task-manager-frontend --ci
-        env:
-          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
