@@ -41,10 +41,6 @@ const TaskList = ({ onLogout }) => {
         fetchTasks();
     }, []);
 
-    useEffect(() => {
-        filterTasks();
-    }, [tasks, tabValue]);
-
     const fetchTasks = async () => {
         try {
             const response = await taskService.getAllTasks();
@@ -58,22 +54,24 @@ const TaskList = ({ onLogout }) => {
 
     const filterTasks = useCallback(() => {
         switch (tabValue) {
-            case 0: // Toutes
+            case 0:
                 setFilteredTasks(tasks);
                 break;
-            case 1: // En cours
+            case 1:
                 setFilteredTasks(tasks.filter(task => !task.completed));
                 break;
-            case 2: // Terminées
+            case 2:
                 setFilteredTasks(tasks.filter(task => task.completed));
                 break;
             default:
                 setFilteredTasks(tasks);
         }
     }, [tasks, tabValue]);
+
     useEffect(() => {
         filterTasks();
     }, [filterTasks]);
+
     const handleCreateTask = () => {
         setCurrentTask(null);
         setDialogOpen(true);
@@ -129,7 +127,7 @@ const TaskList = ({ onLogout }) => {
         <>
             <AppBar position="static">
                 <Toolbar>
-                    <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+                    <Typography variant="h6" sx={{ flexGrow: 1 }}>
                         Gestionnaire de Tâches - {user.username}
                     </Typography>
                     <Button color="inherit" onClick={handleLogout} startIcon={<LogoutIcon />}>
