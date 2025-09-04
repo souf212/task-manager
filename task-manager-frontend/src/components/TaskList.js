@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import {
     Container,
     Paper,
@@ -56,7 +56,7 @@ const TaskList = ({ onLogout }) => {
         }
     };
 
-    const filterTasks = () => {
+    const filterTasks = useCallback(() => {
         switch (tabValue) {
             case 0: // Toutes
                 setFilteredTasks(tasks);
@@ -70,8 +70,10 @@ const TaskList = ({ onLogout }) => {
             default:
                 setFilteredTasks(tasks);
         }
-    };
-
+    }, [tasks, tabValue]);
+    useEffect(() => {
+        filterTasks();
+    }, [filterTasks]);
     const handleCreateTask = () => {
         setCurrentTask(null);
         setDialogOpen(true);
