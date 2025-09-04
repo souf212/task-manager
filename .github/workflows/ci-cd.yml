@@ -73,7 +73,6 @@ jobs:
       - name: Install Railway CLI
         run: npm install -g @railway/cli
 
-
       - name: Deploy backend to Railway
         run: |
           cd Backend
